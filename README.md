@@ -4,7 +4,7 @@
 * Other method: FastPhotoStyle
 
 ## Training MUNIT
-我們選擇的dataset為ukiyoe2photo，styleA為浮世繪，styleB為真實風景照  
+我們選擇的dataset為ukiyoe2photo，trainA為浮世繪，trainB為真實風景照  
 
 下圖為MUNIT在training中所存的.pth檔截圖：
 
@@ -70,17 +70,19 @@ FastPhotoStyle由UC Merced及NVIDIA共同提出，主要保留了content image�
 ![](https://i.imgur.com/GuCWnNG.jpg)
 
 ### Analysis
-- 在content為風景照、style為浮世繪的FastPhotoStyle生成圖中，由於會保留content的輪廓，再將圖片轉為style的色系，所以成果的構圖較MUNIT佳。但也由於FastPhotoStyle很完整地保留了content原本的結構，使得它生成的圖片無法擁有像浮世繪一樣的畫風與線條，只能在色調上有所轉換。若input的風景照是由山和藍天所組成，最後的生成結果會看起來像是復古的油墨畫；但若是原圖包含了現實中的建築物或動物，結果則較無法呈現出繪畫的風格，仍然維持真實照片的樣子。
-- 同樣地，content為浮世繪、style為風景圖的output，也是由於FastPhotoStyle保留了content原本的結構，使得生成結果仍維持浮世繪的畫風，無法轉換成真實照片ㄉㄜ，只有顏色有區塊性的改變，且圖片反而變得很朦朧。此外，我們猜測可能由於style採用的風景圖不像大部分浮世繪的色調大致是相近的，而是每張圖片都會因應取景的不同而有不同的鮮明色彩，所以content的圖片與選擇搭配的style圖片如果不屬於同類型的元素，轉換之後的結果即可能不如預期順利。因此若要改善生成結果，可能要試著挑選適當的組合去搭配與轉換。
+- 在content為風景照、style為浮世繪的FastPhotoStyle生成圖中，由於會保留content的輪廓，再將圖片轉為style的色系，所以成果的構圖較MUNIT佳。但也由於FastPhotoStyle很完整地保留了content原本的結構，使得它生成的圖片無法擁有像浮世繪一樣的畫風與線條，只能在色調上有所轉換。而風景照的內容物不同，也會使得output的呈現有所不同：若input的風景照是由山和藍天所組成，最後的生成結果會看起來像是復古的油墨畫；但若是原圖包含了現實中的建築物或動物，結果則較無法呈現出繪畫的風格，仍然維持真實照片的樣子。
+- 同樣地，content為浮世繪、style為風景圖的output，也是由於FastPhotoStyle保留了content原本的結構，使得生成結果仍維持浮世繪的風格，無法轉換成真實照片的樣子，只有在顏色上有所改變，且圖片變得較為朦朧。此外，我們猜測可能由於style採用的風景圖不像大部分浮世繪的色調大致是相近的，而是每張圖片都會因應取景的不同而有不同的鮮明色彩，所以content的圖片與選擇搭配的style圖片如果不屬於同類型的元素，轉換之後的結果即可能會更不如預期。因此若要改善生成結果，可能要試著挑選適當的組合去搭配與轉換。
 
 ## Overall Comparison
-就上述的呈現而言：
-- 以生成的結果來說，MUNIT無論是浮世繪轉照片或照片轉浮世繪，成果的輪廓皆不如FastPhotoStyle。手繪圖往往是將實景複雜的輪廓簡化為簡單的線條組成並加入藝術家調配的色系，透過FastPhotoStyle將照片轉浮世繪，能保留住content的線條結構並加入浮世繪的色調，就能較容易呈現出手繪圖的感覺，因此整體看起來比MUNIT成功許多；然而浮世繪的線條組成即使透過FastPhotoStyle的方法仍無法轉為實景該有的複雜外型，生成的圖片依舊是浮世繪的圖案風格，因此導致成果不夠理想。
-- 就整體的材質來說，MUNIT的成果較好。MUNIT浮世繪轉照片後所呈現的藍天、綠地和黃土相當類似實際照片的質地；照片轉浮世繪的色調也確實如同真正的浮世繪。而FastPhotoStyle產生的結果，則是比較像對一個個的區塊進行上色。
-- 實際而言，以風景轉浮世繪來說，FastPhotoStyle呈現的效果也不是真正地轉換到浮世繪的風格，而只是將原圖轉換成跟浮世繪用色相似的圖像，若只單看output而言，也較難猜測出轉換後的風格為浮世繪。
+就ukiyoe2photo的轉換而言：
+- 以生成的結果來說，MUNIT無論是浮世繪轉風景照或風景照轉浮世繪，成果的輪廓皆不如FastPhotoStyle。手繪圖往往是將實景複雜的輪廓簡化為簡單的線條，並加入藝術家調配的色系。透過FastPhotoStyle將風景照轉成浮世繪，能保留住風景的線條結構並加入浮世繪的色調，較容易呈現出手繪圖的感覺，即使沒有成功轉換成浮世繪的畫風，整體看起來仍比MUNIT成功；然而浮世繪的線條組成即使透過FastPhotoStyle的方法仍無法轉為實景該有的複雜結構，生成的圖片依舊是浮世繪的畫風，因此導致成果不夠理想。
+- 就整體的材質來說，MUNIT的成果較好。MUNIT浮世繪轉風景照後所呈現的藍天、綠地和黃土相當類似於實際照片的質地；照片轉浮世繪的色調也確實如同真正的浮世繪。而FastPhotoStyle產生的結果，則比較像是進行色調上的轉換。
+- 實際而言，以風景照轉浮世繪來說，FastPhotoStyle呈現的效果雖然較MUNIT成功，但其生成結果並未真正地將真實的風景照轉換成浮世繪的風格，而只是將原圖轉換成跟浮世繪用色相似的圖像，若只單看output而言，也較難猜測出轉換後的風格為浮世繪。
 
 ### Compare with other datasets
-由於ukiyoe2photo的dataset可能並不適合用MUNIT的方式生成，因此我們自己上網找了housecat2dog與edges2handbags的圖當作inputs，分別進行MUNIT與FastPhotoStyle的生成（MUNIT所使用的model為pre-trained model─`housecat2dog.pt`以及`edges2handbags.pt`），來加以比較MUNIT及FastPhotoStyle的生成結果。結果如下：
+由於ukiyoe2photo的dataset可能並不適合用MUNIT的方式生成，因此我們試著用另外兩個的datasets─housecat2dog與edges2handbags來進行比較。我們自己上網找了的圖片當作inputs，分別進行MUNIT與FastPhotoStyle的生成，來加以分析MUNIT及FastPhotoStyle的轉換結果。（MUNIT所使用的model為pre-trained model─`housecat2dog.pt`以及`edges2handbags.pt`）
+
+結果如下：
 - MUNIT (Dog to Cat)
 ![](https://imgur.com/0DZDF4L.jpg)
 - FastPhotoStyle (Content-Dog / Style-Cat)
@@ -91,16 +93,16 @@ FastPhotoStyle由UC Merced及NVIDIA共同提出，主要保留了content image�
 - FastPhotoStyle (Content-Cat / Style-Dog)
 ![](https://imgur.com/qI3Hzhq.jpg)
 -----------------------------------------------  
-- MUNIT (Edge to Handbags)
+- MUNIT (Edge to Handbag)
 ![](https://imgur.com/VvLvODl.jpg)
-- FastPhotoStyle (Content-Edge / Style-Handbags)
+- FastPhotoStyle (Content-Edge / Style-Handbag)
 ![](https://imgur.com/uf2iwdX.jpg)
 -----------------------------------------------  
-- MUNIT (Handbags to Edge)
+- MUNIT (Handbag to Edge)
 ![](https://imgur.com/808Xy28.jpg)
-- FastPhotoStyle (Content-Handbags / Style-Edge)
+- FastPhotoStyle (Content-Handbag / Style-Edge)
 ![](https://imgur.com/Drk5cyn.jpg)
 
-由上圖可以發現在Dog to Cat、Cat to Dog、Edge to Handbags和Handbags to Edge皆為MUNIT的效果較佳。以上的input透過MUNIT皆確實成功轉換型態，但透過FastPhotoStyle的結果卻只是content在色彩上有了改變。
+由MUNIT、FastPhotoStyle兩種方法的生成結果可以看出，housecat2dog與edges2handbags的轉換，MUNIT的效果皆較佳。以上的input透過MUNIT皆確實成功轉換型態，但透過FastPhotoStyle的結果卻只是content在色彩上有了改變。
 
-綜合浮世繪與真實風景照的轉換，可以看出FastPhotoStyle適合用在單純色調上的轉換；而MUNIT則是適合用在形體差不多的東西的轉換。
+再綜合ukiyoe2photo的轉換成果，可以得出結論：FastPhotoStyle適合用在單純只有色調轉換的圖片生成；而MUNIT則是適合用在形體、結構差不多，卻要大幅轉換其texture的圖片生成。
