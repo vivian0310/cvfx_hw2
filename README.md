@@ -53,8 +53,10 @@
 
 - 介紹  
 FastPhotoStyle由UC Merced及NVIDIA共同提出，主要保留了content image的景色並融合style image的風格，最後生成出風格轉移的圖片。轉換方法是將content與style兩張inputs透過PhotoWCT(Whitening and Coloring Transform)來進行轉換，再利用smoothing將產生後的圖片平滑化，使圖像更加逼真。
+
 ![](https://i.imgur.com/WzjzGTj.jpg)
-其中WCT與PhotoWCT的差別在於，WCT經過Max pooling layer → Upsampling layer後較無法恢復原始圖像的結構細節(如上左圖)，因此他們利用Unpooling layer取代Upsampling layer，來保留原圖的空間特色與資訊。
+
+上圖為WCT與PhotoWCT的架構圖，其中WCT與PhotoWCT的差別在於，WCT經過Max pooling layer → Upsampling layer後較無法恢復原始圖像的結構細節(如上左圖)，因此他們利用Unpooling layer取代Upsampling layer，來保留原圖的空間特色與資訊。
 
 ## Inference FastPhotoStyle
 我們利用已給定的model(`photo_wct.pth`)來跑生成，而content及style image的部分使用與MUNIT相同的各10張圖片。
